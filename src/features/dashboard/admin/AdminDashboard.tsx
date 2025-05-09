@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
-import { DashboardCard } from '@/components/dashboard/DashboardCard';
-import { TaskList } from '@/components/dashboard/TaskList';
+import DashboardCard from '@/components/dashboard/DashboardCard';
+import TaskList from '@/components/dashboard/TaskList';
 import { 
   Users, 
   Building, 

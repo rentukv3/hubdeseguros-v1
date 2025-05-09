@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
-import { DashboardCard } from '@/components/dashboard/DashboardCard';
-import { TaskList } from '@/components/dashboard/TaskList';
+import DashboardCard from '@/components/dashboard/DashboardCard';
+import TaskList from '@/components/dashboard/TaskList';
 import { Users, Shield, ShoppingCart, AlertCircle } from 'lucide-react';
 
 // Datos de ejemplo para el dashboard
