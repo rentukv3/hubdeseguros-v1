@@ -95,6 +95,13 @@ const Landing = () => {
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
                   <span className="text-sm text-white mx-auto">Hubseguros - Panel de control</span>
                 </div>
+<<<<<<< HEAD
+                <div className="bg-white p-6 rounded-b-md">
+                  <div className="grid grid-cols-3 gap-6">
+                    <div className="bg-[#E8F0FF] p-4 rounded-md text-center">
+                      <div className="text-3xl font-bold text-[#0056FF] mb-1">117</div>
+                      <div className="text-sm text-gray-650">Pólizas activas</div>
+=======
                 
                 {/* Contenido principal del panel */}
                 <div className="flex">
@@ -104,7 +111,18 @@ const Landing = () => {
                       <h2 className="text-xl font-semibold">
                         Hub<span className="text-[#0056FF]">seguros</span>
                       </h2>
+>>>>>>> baf24d3a4e8bdf4a5caf27be1a82aa38fd78ed32
                     </div>
+<<<<<<< HEAD
+                    <div className="bg-[#E8F0FF] p-4 rounded-md text-center">
+                      <div className="text-3xl font-bold text-[#0056FF] mb-1">17</div>
+                      <div className="text-sm text-gray-650">Renovaciones</div>
+                    </div>
+                    <div className="bg-[#E8F0FF] p-4 rounded-md text-center">
+                      <div className="text-3xl font-bold text-[#0056FF] mb-1">7</div>
+                      <div className="text-sm text-gray-650">Siniestros pendientes</div>
+                    </div>
+=======
                     
                     <nav className="mt-6">
                       <div className="flex items-center px-6 py-3 text-sm font-medium bg-[#E8F0FF] text-[#0056FF] border-l-4 border-[#0056FF]">
@@ -142,6 +160,7 @@ const Landing = () => {
                         Configuración
                       </div>
                     </nav>
+>>>>>>> baf24d3a4e8bdf4a5caf27be1a82aa38fd78ed32
                   </div>
                   
                   {/* Contenido principal */}
