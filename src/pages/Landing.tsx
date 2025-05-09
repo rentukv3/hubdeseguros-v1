@@ -36,7 +36,7 @@ const Landing = () => {
             </div>
             <nav className="hidden md:flex space-x-8">
               <a href="#caracteristicas" className="text-gray-600 hover:text-gray-900">Características</a>
-              <a href="#beneficios" className="text-gray-600 hover:text-gray-900">Beneficios</a>
+              <a href="#b" className="text-gray-600 hover:text-gray-900"></a>
               <a href="#soluciones" className="text-gray-600 hover:text-gray-900">Soluciones</a>
             </nav>
             <div className="flex items-center space-x-4">
