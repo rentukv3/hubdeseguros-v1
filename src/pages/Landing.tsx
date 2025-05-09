@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
@@ -246,4 +247,66 @@ const Landing = () => {
                   <span>Todo lo de Usuario</span>
                 </li>
                 <li className="flex items-center">
-                  <Shield size={18} className="text-green-500 mr-
+                  <Shield size={18} className="text-green-500 mr-2" />
+                  <span>Gestión de clientes</span>
+                </li>
+                <li className="flex items-center">
+                  <Shield size={18} className="text-green-500 mr-2" />
+                  <span>Seguimiento de renovaciones</span>
+                </li>
+                <li className="flex items-center">
+                  <Shield size={18} className="text-green-500 mr-2" />
+                  <span>Reportes avanzados</span>
+                </li>
+                <li className="flex items-center">
+                  <Shield size={18} className="text-green-500 mr-2" />
+                  <span>Gestión de comisiones</span>
+                </li>
+              </ul>
+              <Button className="w-full bg-[#0056FF] hover:bg-blue-600">Comenzar</Button>
+            </div>
+            
+            <div className="bg-white p-8 rounded-lg border border-gray-200 shadow-sm">
+              <h3 className="text-2xl font-bold text-[#0056FF] mb-4">Agencia</h3>
+              <ul className="space-y-3 mb-8 min-h-[180px]">
+                <li className="flex items-center">
+                  <Shield size={18} className="text-green-500 mr-2" />
+                  <span>Todo lo de Agente</span>
+                </li>
+                <li className="flex items-center">
+                  <Shield size={18} className="text-green-500 mr-2" />
+                  <span>Gestión de agentes</span>
+                </li>
+                <li className="flex items-center">
+                  <Shield size={18} className="text-green-500 mr-2" />
+                  <span>Reportes consolidados</span>
+                </li>
+                <li className="flex items-center">
+                  <Shield size={18} className="text-green-500 mr-2" />
+                  <span>Panel multiusuario</span>
+                </li>
+                <li className="flex items-center">
+                  <Shield size={18} className="text-green-500 mr-2" />
+                  <span>Personalización completa</span>
+                </li>
+              </ul>
+              <Button className="w-full bg-[#0056FF] hover:bg-blue-600">Comenzar</Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Whatsapp floating button */}
+      <a 
+        href="https://wa.me/5551234567890" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors z-50"
+      >
+        <FaWhatsapp size={24} />
+      </a>
+    </div>
+  );
+};
+
+export default Landing;
