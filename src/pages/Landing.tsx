@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { BarChart4, CheckCircle, Lock, Shield, Users } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 
 const Landing = () => {
   const { isAuthenticated, user } = useAuth();
@@ -18,6 +19,8 @@ const Landing = () => {
         return '/agente/dashboard';
       case 'AGENCIA':
         return '/agencia/dashboard';
+      case 'ADMIN':
+        return '/admin/dashboard';
       default:
         return '/dashboard';
     }
@@ -32,6 +35,11 @@ const Landing = () => {
             <div className="flex items-center">
               <span className="text-2xl font-bold text-hubseguros-primary">HubSeguros</span>
             </div>
+            <nav className="hidden md:flex space-x-8">
+              <a href="#caracteristicas" className="text-gray-600 hover:text-gray-900">Características</a>
+              <a href="#beneficios" className="text-gray-600 hover:text-gray-900">Beneficios</a>
+              <a href="#soluciones" className="text-gray-600 hover:text-gray-900">Soluciones</a>
+            </nav>
             <div className="flex items-center space-x-4">
               <Button variant="ghost" asChild>
                 <Link to="/login">Iniciar sesión</Link>
@@ -133,9 +141,9 @@ const Landing = () => {
       </section>
 
       {/* Features */}
-      <section className="py-16 bg-white">
+      <section id="caracteristicas" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">Beneficios de usar HubSeguros</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Características de HubSeguros</h2>
           <p className="text-center text-gray-600 mb-16 max-w-3xl mx-auto">
             Nuestra plataforma está diseñada específicamente para facilitar el trabajo diario de agentes, promotores y agencias de seguros.
           </p>
@@ -185,7 +193,7 @@ const Landing = () => {
       </section>
 
       {/* Role-specific solutions */}
-      <section className="py-16 bg-gray-50">
+      <section id="soluciones" className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-6">Soluciones adaptadas a tu rol</h2>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
@@ -272,6 +280,58 @@ const Landing = () => {
         </div>
       </section>
 
+      {/* Benefits Section */}
+      <section id="beneficios" className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-6">Beneficios de usar HubSeguros</h2>
+          <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+            Nuestra plataforma está diseñada específicamente para facilitar el trabajo diario de agentes, promotores y agencias de seguros.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="p-6 text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <BarChart4 size={28} className="text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Organiza tu cartera</h3>
+              <p className="text-gray-600 text-sm">
+                Gestiona de forma eficiente tus clientes, pólizas y siniestros en una sola plataforma integrada.
+              </p>
+            </div>
+            
+            <div className="p-6 text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Lock size={28} className="text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Ahorra tiempo</h3>
+              <p className="text-gray-600 text-sm">
+                Automatiza tareas repetitivas y procesos administrativos para centrarte en lo que realmente importa.
+              </p>
+            </div>
+            
+            <div className="p-6 text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <BarChart4 size={28} className="text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Impulsa tus ventas</h3>
+              <p className="text-gray-600 text-sm">
+                Identifica oportunidades de venta cruzada y seguimiento de renovaciones para aumentar tu cartera.
+              </p>
+            </div>
+            
+            <div className="p-6 text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users size={28} className="text-blue-600" />
+              </div>
+              <h3 className="text-xl font-semibold mb-3">Soporte humano</h3>
+              <p className="text-gray-600 text-sm">
+                Contamos con un equipo de especialistas que te ayudarán en todo momento con cualquier consulta.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 bg-hubseguros-primary text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -346,6 +406,17 @@ const Landing = () => {
           </div>
         </div>
       </footer>
+
+      {/* Botón flotante de WhatsApp */}
+      <a 
+        href="https://wa.me/1234567890" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 bg-green-500 text-white rounded-full p-3 shadow-lg hover:bg-green-600 transition-colors z-50"
+        aria-label="Contactar por WhatsApp"
+      >
+        <FaWhatsapp size={28} />
+      </a>
     </div>
   );
 };

@@ -47,12 +47,12 @@ const Sidebar = () => {
       <div className={`flex items-center p-4 ${collapsed ? 'justify-center' : 'justify-between'} border-b border-[#2a3c5a]`}>
         {!collapsed && (
           <div className="flex items-center">
-            <span className="text-white font-bold text-xl">HubSeguros</span>
+            <span className="text-white font-bold text-xl">SeguroHub</span>
           </div>
         )}
         {collapsed && (
           <div className="flex items-center justify-center">
-            <span className="text-white font-bold text-xl">HS</span>
+            <span className="text-white font-bold text-xl">SH</span>
           </div>
         )}
         <Button

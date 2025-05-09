@@ -4,9 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { toast } from '@/components/ui/use-toast';
 import { UserRole } from '@/types/auth';
+import { 
+  Select, 
+  SelectContent, 
+  SelectGroup, 
+  SelectItem, 
+  SelectLabel, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -152,26 +160,22 @@ const Register = () => {
               />
             </div>
             
-            <div className="space-y-3">
-              <Label>Selecciona tu rol</Label>
-              <RadioGroup 
-                defaultValue="CLIENTE"
-                onValueChange={(value) => setSelectedRole(value as UserRole)}
-                className="flex flex-col space-y-2"
-              >
-                <div className="flex items-center space-x-2 p-2 rounded-md border border-gray-200 hover:bg-gray-50">
-                  <RadioGroupItem value="CLIENTE" id="cliente" />
-                  <Label htmlFor="cliente" className="flex-1 cursor-pointer">Cliente</Label>
-                </div>
-                <div className="flex items-center space-x-2 p-2 rounded-md border border-gray-200 hover:bg-gray-50">
-                  <RadioGroupItem value="AGENTE" id="agente" />
-                  <Label htmlFor="agente" className="flex-1 cursor-pointer">Agente</Label>
-                </div>
-                <div className="flex items-center space-x-2 p-2 rounded-md border border-gray-200 hover:bg-gray-50">
-                  <RadioGroupItem value="AGENCIA" id="agencia" />
-                  <Label htmlFor="agencia" className="flex-1 cursor-pointer">Agencia</Label>
-                </div>
-              </RadioGroup>
+            <div className="space-y-2">
+              <Label htmlFor="role">Selecciona tu rol</Label>
+              <Select defaultValue={selectedRole} onValueChange={(value) => setSelectedRole(value as UserRole)}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Selecciona un rol" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Roles disponibles</SelectLabel>
+                    <SelectItem value="CLIENTE">Cliente</SelectItem>
+                    <SelectItem value="AGENTE">Agente</SelectItem>
+                    <SelectItem value="AGENCIA">Agencia</SelectItem>
+                    <SelectItem value="ADMIN">Administrador</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
             
             <Button

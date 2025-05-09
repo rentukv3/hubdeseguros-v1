@@ -20,7 +20,9 @@ import {
   LayoutDashboard,
   KeyRound,
   ClipboardList,
-  Database
+  Database,
+  Bell,
+  Contact
 } from "lucide-react";
 
 export interface MenuItem {
@@ -69,6 +71,14 @@ export const userRoutes: RouteConfig = {
           icon: CreditCard, 
           path: '/usuario/pagos',
           tooltip: 'Realiza y administra tus pagos'
+        },
+        { 
+          key: 'notificaciones', 
+          label: 'Notificaciones', 
+          icon: Bell, 
+          path: '/usuario/notificaciones',
+          notificationCount: 3,
+          tooltip: 'Centro de notificaciones'
         }
       ]
     },
@@ -88,6 +98,13 @@ export const userRoutes: RouteConfig = {
           icon: Calculator, 
           path: '/usuario/cotizaciones',
           tooltip: 'Solicita cotizaciones de seguros'
+        },
+        { 
+          key: 'contacto-soporte', 
+          label: 'Contacto con Soporte', 
+          icon: Contact, 
+          path: '/usuario/contacto-soporte',
+          tooltip: 'Contacta con nuestro equipo de soporte'
         }
       ]
     }
@@ -135,6 +152,14 @@ export const agentRoutes: RouteConfig = {
           icon: CreditCard, 
           path: '/agente/cobros',
           tooltip: 'Gestiona cobros y pagos pendientes'
+        },
+        { 
+          key: 'notificaciones', 
+          label: 'Notificaciones', 
+          icon: Bell, 
+          path: '/agente/notificaciones',
+          notificationCount: 5,
+          tooltip: 'Centro de notificaciones'
         }
       ]
     },
@@ -236,6 +261,14 @@ export const agencyRoutes: RouteConfig = {
           icon: CreditCard, 
           path: '/agencia/cobros',
           tooltip: 'Administración de cobros y pagos'
+        },
+        { 
+          key: 'notificaciones', 
+          label: 'Notificaciones', 
+          icon: Bell, 
+          path: '/agencia/notificaciones',
+          notificationCount: 7,
+          tooltip: 'Centro de notificaciones'
         }
       ]
     },
@@ -270,6 +303,20 @@ export const agencyRoutes: RouteConfig = {
           icon: Building, 
           path: '/agencia/aseguradoras',
           tooltip: 'Gestiona las compañías aseguradoras'
+        },
+        { 
+          key: 'tareas', 
+          label: 'Tareas', 
+          icon: CheckSquare, 
+          path: '/agencia/tareas',
+          tooltip: 'Gestiona tus tareas pendientes'
+        },
+        { 
+          key: 'calendario', 
+          label: 'Calendario', 
+          icon: Calendar, 
+          path: '/agencia/calendario',
+          tooltip: 'Organiza tus citas y recordatorios'
         }
       ]
     },
@@ -358,6 +405,14 @@ export const adminRoutes: RouteConfig = {
           path: '/admin/agentes',
           tooltip: 'Administración de agentes',
           notificationCount: 3
+        },
+        { 
+          key: 'notificaciones', 
+          label: 'Notificaciones', 
+          icon: Bell, 
+          path: '/admin/notificaciones',
+          notificationCount: 10,
+          tooltip: 'Centro de notificaciones'
         }
       ]
     },
