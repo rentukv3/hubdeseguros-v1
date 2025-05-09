@@ -26,6 +26,8 @@ const PrivateRoute = ({ allowedRoles = [] }: PrivateRouteProps) => {
         return <Navigate to="/agente/dashboard" replace />;
       case 'AGENCIA':
         return <Navigate to="/agencia/dashboard" replace />;
+      case 'ADMIN':
+        return <Navigate to="/admin/dashboard" replace />;
       default:
         return <Navigate to="/dashboard" replace />;
     }

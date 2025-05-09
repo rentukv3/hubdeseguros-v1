@@ -90,6 +90,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           case 'AGENCIA':
             navigate('/agencia/dashboard');
             break;
+          case 'ADMIN':
+            navigate('/admin/dashboard');
+            break;
           default:
             navigate('/dashboard');
         }

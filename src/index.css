@@ -43,6 +43,11 @@
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 215 28% 25%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Color azul principal de HubSeguros */
+    --hubseguros-primary: 220 100% 50%;
+    --hubseguros-dark: 220 100% 25%;
+    --hubseguros-light: 220 100% 65%;
   }
 
   .dark {
@@ -95,5 +100,25 @@
 }
 
 .sidebar-menu-item.active {
-  @apply bg-sidebar-accent font-medium text-hubseguros-primary;
+  @apply bg-sidebar-accent font-medium text-blue-700;
+}
+
+/* Agregar clases específicas para los botones azules */
+.btn-blue {
+  @apply bg-blue-700 hover:bg-blue-800 text-white;
+}
+
+/* Actualizar estilos para encabezados */
+.dashboard-title {
+  @apply text-2xl font-bold text-blue-700;
+}
+
+/* Estilos para cards */
+.card-highlight {
+  @apply border-blue-700;
+}
+
+/* Estilos para los enlaces de navegación */
+.nav-link {
+  @apply text-blue-700 hover:text-blue-800;
 }

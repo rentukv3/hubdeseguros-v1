@@ -16,7 +16,11 @@ import {
   Folder, 
   GitBranch, 
   Building, 
-  Settings 
+  Settings,
+  LayoutDashboard,
+  KeyRound,
+  ClipboardList,
+  Database
 } from "lucide-react";
 
 export interface MenuItem {
@@ -318,6 +322,88 @@ export const agencyRoutes: RouteConfig = {
   ]
 };
 
+// Configuración de rutas para el rol de administrador
+export const adminRoutes: RouteConfig = {
+  path: '/admin/dashboard',
+  sections: [
+    {
+      title: 'PRINCIPALES',
+      items: [
+        { 
+          key: 'vista-general', 
+          label: 'Vista General', 
+          icon: LayoutDashboard, 
+          path: '/admin/vista-general',
+          tooltip: 'Panel general de la plataforma'
+        },
+        { 
+          key: 'usuarios', 
+          label: 'Usuarios', 
+          icon: Users, 
+          path: '/admin/usuarios',
+          tooltip: 'Gestión de usuarios del sistema'
+        },
+        { 
+          key: 'agencias', 
+          label: 'Agencias', 
+          icon: Building, 
+          path: '/admin/agencias',
+          tooltip: 'Administración de agencias',
+          notificationCount: 2
+        },
+        { 
+          key: 'agentes', 
+          label: 'Agentes', 
+          icon: Users, 
+          path: '/admin/agentes',
+          tooltip: 'Administración de agentes',
+          notificationCount: 3
+        }
+      ]
+    },
+    {
+      title: 'SISTEMA',
+      items: [
+        { 
+          key: 'roles', 
+          label: 'Roles', 
+          icon: KeyRound, 
+          path: '/admin/roles',
+          tooltip: 'Gestión de roles y permisos'
+        },
+        { 
+          key: 'permisos', 
+          label: 'Permisos', 
+          icon: ClipboardList, 
+          path: '/admin/permisos',
+          tooltip: 'Configuración de permisos del sistema'
+        },
+        { 
+          key: 'logs', 
+          label: 'Logs del Sistema', 
+          icon: FileText, 
+          path: '/admin/logs',
+          tooltip: 'Registro de actividades del sistema'
+        },
+        { 
+          key: 'backups', 
+          label: 'Copias de Seguridad', 
+          icon: Database, 
+          path: '/admin/backups',
+          tooltip: 'Gestión de backups del sistema'
+        },
+        { 
+          key: 'configuracion', 
+          label: 'Configuración', 
+          icon: Settings, 
+          path: '/admin/configuracion',
+          tooltip: 'Configuración general de la plataforma'
+        }
+      ]
+    },
+  ]
+};
+
 export const getRoutesByRole = (role: UserRole): RouteConfig => {
   switch (role) {
     case 'CLIENTE':
@@ -326,7 +412,9 @@ export const getRoutesByRole = (role: UserRole): RouteConfig => {
       return agentRoutes;
     case 'AGENCIA':
       return agencyRoutes;
+    case 'ADMIN':
+      return adminRoutes;
     default:
-      return agencyRoutes; // Por defecto, si es ADMIN mostramos la vista de agencia
+      return adminRoutes; // Por defecto, si es ADMIN mostramos la vista de administrador
   }
 };

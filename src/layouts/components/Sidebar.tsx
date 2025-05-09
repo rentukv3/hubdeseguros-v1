@@ -42,41 +42,41 @@ const Sidebar = () => {
   if (!user || !routeConfig) return null;
 
   return (
-    <div className={`h-screen bg-sidebar transition-all duration-300 ${collapsed ? 'w-16' : 'w-64'} flex flex-col shadow-lg`}>
+    <div className={`h-screen bg-[#1e2e4a] transition-all duration-300 ${collapsed ? 'w-16' : 'w-64'} flex flex-col shadow-lg`}>
       {/* Logo y título */}
-      <div className={`flex items-center p-4 ${collapsed ? 'justify-center' : 'justify-between'} border-b border-sidebar-border`}>
+      <div className={`flex items-center p-4 ${collapsed ? 'justify-center' : 'justify-between'} border-b border-[#2a3c5a]`}>
         {!collapsed && (
           <div className="flex items-center">
-            <span className="text-sidebar-foreground font-bold text-xl">HubSeguros</span>
+            <span className="text-white font-bold text-xl">HubSeguros</span>
           </div>
         )}
         {collapsed && (
           <div className="flex items-center justify-center">
-            <span className="text-sidebar-foreground font-bold text-xl">HS</span>
+            <span className="text-white font-bold text-xl">HS</span>
           </div>
         )}
         <Button
           variant="ghost"
           size="icon"
           onClick={() => setCollapsed(!collapsed)}
-          className="text-sidebar-foreground hover:bg-sidebar-accent"
+          className="text-white hover:bg-[#2a3c5a]"
         >
           {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
         </Button>
       </div>
 
       {/* Información del usuario */}
-      <div className={`${collapsed ? 'py-4 px-2' : 'p-4'} border-b border-sidebar-border`}>
+      <div className={`${collapsed ? 'py-4 px-2' : 'p-4'} border-b border-[#2a3c5a]`}>
         <div className="flex items-center">
           <div className="flex-shrink-0">
-            <div className="w-8 h-8 rounded-full bg-sidebar-primary flex items-center justify-center text-sidebar-primary-foreground font-medium">
+            <div className="w-8 h-8 rounded-full bg-blue-700 flex items-center justify-center text-white font-medium">
               {user.name.charAt(0)}
             </div>
           </div>
           {!collapsed && (
             <div className="ml-3 overflow-hidden">
-              <p className="text-sm font-medium text-sidebar-foreground truncate">{user.name}</p>
-              <p className="text-xs text-sidebar-foreground/70 truncate">{user.role}</p>
+              <p className="text-sm font-medium text-white truncate">{user.name}</p>
+              <p className="text-xs text-gray-300 truncate">{user.role}</p>
             </div>
           )}
         </div>
@@ -87,7 +87,7 @@ const Sidebar = () => {
         {routeConfig.sections.map((section) => (
           <div key={section.title} className="mb-6">
             {!collapsed && (
-              <h3 className="sidebar-section-title">{section.title}</h3>
+              <h3 className="text-xs font-semibold tracking-wider uppercase text-gray-400 mb-2 px-4">{section.title}</h3>
             )}
             <ul>
               {section.items.map((item) => (
@@ -95,7 +95,9 @@ const Sidebar = () => {
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <li 
-                        className={`sidebar-menu-item ${activeKey === item.key ? 'active' : ''}`}
+                        className={`flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-[#2a3c5a] rounded-md transition-colors cursor-pointer mb-1 ${
+                          activeKey === item.key ? 'bg-[#2a3c5a] font-medium text-blue-400' : ''
+                        }`}
                         onClick={() => handleItemClick(item.path, item.key)}
                       >
                         <div className="relative">
@@ -131,11 +133,11 @@ const Sidebar = () => {
       </div>
 
       {/* Footer con botón de cerrar sesión */}
-      <div className={`p-4 border-t border-sidebar-border ${collapsed ? 'flex justify-center' : ''}`}>
+      <div className={`p-4 border-t border-[#2a3c5a] ${collapsed ? 'flex justify-center' : ''}`}>
         <Button 
           variant="ghost" 
           onClick={logout} 
-          className={`text-sidebar-foreground hover:bg-sidebar-accent ${collapsed ? 'w-10 h-10 p-0' : 'w-full'}`}
+          className={`text-gray-300 hover:bg-[#2a3c5a] ${collapsed ? 'w-10 h-10 p-0' : 'w-full'}`}
         >
           <LogOut size={18} />
           {!collapsed && <span className="ml-2">Cerrar sesión</span>}

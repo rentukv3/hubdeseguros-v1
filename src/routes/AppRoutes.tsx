@@ -7,6 +7,7 @@ import { UserRole } from '@/types/auth';
 
 // Pages con lazy loading
 const Login = lazy(() => import('../pages/Login'));
+const Register = lazy(() => import('../pages/Register'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const Landing = lazy(() => import('../pages/Landing'));
 
@@ -14,13 +15,14 @@ const Landing = lazy(() => import('../pages/Landing'));
 const UserDashboard = lazy(() => import('../features/dashboard/user/UserDashboard'));
 const AgentDashboard = lazy(() => import('../features/dashboard/agent/AgentDashboard'));
 const AgencyDashboard = lazy(() => import('../features/dashboard/agency/AgencyDashboard'));
+const AdminDashboard = lazy(() => import('../features/dashboard/admin/AdminDashboard'));
 
 // Páginas de ejemplo para cada sección
 const Placeholder = lazy(() => import('../components/common/Placeholder'));
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center min-h-screen">
-    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-hubseguros-primary"></div>
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-700"></div>
   </div>
 );
 
@@ -38,6 +40,8 @@ const AppRoutes = () => {
         return '/agente/dashboard';
       case 'AGENCIA':
         return '/agencia/dashboard';
+      case 'ADMIN':
+        return '/admin/dashboard';
       default:
         return '/dashboard';
     }
@@ -52,6 +56,7 @@ const AppRoutes = () => {
         {/* Rutas públicas */}
         <Route path="/landing" element={<Landing />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         {/* Rutas para CLIENTE */}
         <Route path="/usuario" element={<PrivateRoute allowedRoles={['CLIENTE', 'ADMIN']} />}>
@@ -96,6 +101,24 @@ const AppRoutes = () => {
           <Route path="archivos" element={<Placeholder title="Archivos" />} />
           <Route path="facturas" element={<Placeholder title="Facturas" />} />
           <Route path="configuracion" element={<Placeholder title="Configuración" />} />
+        </Route>
+
+        {/* Rutas para ADMIN */}
+        <Route path="/admin" element={<PrivateRoute allowedRoles={['ADMIN']} />}>
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="vista-general" element={<AdminDashboard />} />
+          <Route path="usuarios" element={<Placeholder title="Gestión de Usuarios" />} />
+          <Route path="agencias" element={<Placeholder title="Gestión de Agencias" />} />
+          <Route path="agentes" element={<Placeholder title="Gestión de Agentes" />} />
+          <Route path="roles" element={<Placeholder title="Gestión de Roles" />} />
+          <Route path="permisos" element={<Placeholder title="Gestión de Permisos" />} />
+          <Route path="logs" element={<Placeholder title="Logs del Sistema" />} />
+          <Route path="backups" element={<Placeholder title="Copias de Seguridad" />} />
+          <Route path="configuracion" element={<Placeholder title="Configuración del Sistema" />} />
+          <Route path="actividades" element={<Placeholder title="Registro de Actividades" />} />
+          <Route path="sistema" element={<Placeholder title="Estado del Sistema" />} />
+          <Route path="metricas/alertas" element={<Placeholder title="Alertas del Sistema" />} />
+          <Route path="metricas/rendimiento" element={<Placeholder title="Rendimiento del Sistema" />} />
         </Route>
 
         {/* Página 404 */}

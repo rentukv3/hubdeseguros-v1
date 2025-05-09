@@ -28,6 +28,8 @@ const Login = () => {
         return <Navigate to="/agente/dashboard" replace />;
       case 'AGENCIA':
         return <Navigate to="/agencia/dashboard" replace />;
+      case 'ADMIN':
+        return <Navigate to="/admin/dashboard" replace />;
       default:
         return <Navigate to="/dashboard" replace />;
     }
@@ -36,7 +38,7 @@ const Login = () => {
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* Sección izquierda (imagen de fondo) */}
-      <div className="flex-1 bg-hubseguros-primary p-8 flex flex-col justify-center items-start text-white">
+      <div className="flex-1 bg-blue-700 p-8 flex flex-col justify-center items-start text-white">
         <div className="max-w-md mx-auto md:ml-auto md:mr-0">
           <h1 className="text-4xl font-bold mb-4">Bienvenido a HubSeguros</h1>
           <p className="text-xl mb-6">
@@ -113,7 +115,7 @@ const Login = () => {
             <div className="space-y-2">
               <div className="flex justify-between items-center">
                 <Label htmlFor="password">Contraseña</Label>
-                <a href="#" className="text-xs text-blue-600 hover:underline">
+                <a href="#" className="text-xs text-blue-700 hover:underline">
                   ¿Olvidaste tu contraseña?
                 </a>
               </div>
@@ -129,7 +131,7 @@ const Login = () => {
             </div>
             <Button 
               type="submit" 
-              className="w-full bg-hubseguros-primary hover:bg-blue-700"
+              className="w-full bg-blue-700 hover:bg-blue-800"
               disabled={isLoading}
             >
               {isLoading ? 'Iniciando sesión...' : 'Iniciar sesión'}
@@ -138,7 +140,7 @@ const Login = () => {
           
           <div className="mt-6 text-center text-sm text-gray-600">
             <p>Cuentas de prueba:</p>
-            <div className="grid grid-cols-3 gap-2 mt-2">
+            <div className="grid grid-cols-4 gap-2 mt-2">
               <div className="p-2 border rounded text-xs">
                 <p className="font-medium">Cliente</p>
                 <p>cliente@demo.com</p>
@@ -154,13 +156,18 @@ const Login = () => {
                 <p>agencia@demo.com</p>
                 <p>password</p>
               </div>
+              <div className="p-2 border rounded text-xs">
+                <p className="font-medium">Admin</p>
+                <p>admin@demo.com</p>
+                <p>password</p>
+              </div>
             </div>
           </div>
           
           <Separator className="my-6" />
           
           <p className="text-center text-sm">
-            ¿No tienes una cuenta? <a href="/landing" className="text-blue-600 hover:underline">Regístrate</a>
+            ¿No tienes una cuenta? <a href="/register" className="text-blue-700 hover:underline">Regístrate</a>
           </p>
           
           <div className="mt-6 text-center text-xs text-gray-500">
