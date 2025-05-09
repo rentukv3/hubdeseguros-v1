@@ -158,15 +158,15 @@ const Landing = () => {
                       
                       <Card className="bg-[#E8F8E8] border-0 shadow-sm">
                         <CardContent className="p-4 text-center">
-                          <p className="text-gray-600 mb-1">Renovaciones  </p>
-                          <p className="text-4xl font-bold text-green-600">17</p>
+                          <p className="text-gray-600 mb-1"> Renovaciones      </p>
+                          <p className="text-4xl font-bold text-[#0056FF]">17</p>
                         </CardContent>
                       </Card>
                       
                       <Card className="bg-[#FFF8E8] border-0 shadow-sm">
                         <CardContent className="p-4 text-center">
                           <p className="text-gray-600 mb-1">Siniestros pendientes</p>
-                          <p className="text-4xl font-bold text-amber-600">7</p>
+                          <p className="text-4xl font-bold text-[#0056FF]">7</p>
                         </CardContent>
                       </Card>
                     </div>
