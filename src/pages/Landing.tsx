@@ -158,7 +158,7 @@ const Landing = () => {
                       
                       <Card className="bg-[#E8F8E8] border-0 shadow-sm">
                         <CardContent className="p-4 text-center">
-                          <p className="text-gray-600 mb-1">Renovaciones este mes</p>
+                          <p className="text-gray-600 mb-1">Renovaciones</p>
                           <p className="text-4xl font-bold text-green-600">17</p>
                         </CardContent>
                       </Card>
