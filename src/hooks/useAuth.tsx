@@ -76,6 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       
       if (foundUser) {
         const { password, ...userWithoutPassword } = foundUser;
+        // Ensure level is properly typed as UserLevel
         setUser(userWithoutPassword as User);
         localStorage.setItem('hubseguros_user', JSON.stringify(userWithoutPassword));
         
