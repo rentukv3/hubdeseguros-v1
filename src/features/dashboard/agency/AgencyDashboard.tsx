@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import DashboardCard from '@/components/dashboard/DashboardCard';
 import TaskList from '@/components/dashboard/TaskList';
@@ -42,10 +41,10 @@ const stats = [
 
 // Tareas pendientes de ejemplo
 const pendingTasks = [
-  { id: '1', title: 'Revisión de rendimiento de agentes', priority: 'alta', dueDate: 'Hoy', completed: false },
-  { id: '2', title: 'Llamada con aseguradora', priority: 'alta', dueDate: 'Mañana', completed: false },
-  { id: '3', title: 'Preparar reporte mensual', priority: 'media', dueDate: '25/05/2023', completed: true },
-  { id: '4', title: 'Revisar comisiones pendientes', priority: 'baja', dueDate: '28/05/2023', completed: false }
+  { id: '1', title: 'Revisión de rendimiento de agentes', priority: 'alta' as 'alta', dueDate: 'Hoy', completed: false },
+  { id: '2', title: 'Llamada con aseguradora', priority: 'alta' as 'alta', dueDate: 'Mañana', completed: false },
+  { id: '3', title: 'Preparar reporte mensual', priority: 'media' as 'media', dueDate: '25/05/2023', completed: true },
+  { id: '4', title: 'Revisar comisiones pendientes', priority: 'baja' as 'baja', dueDate: '28/05/2023', completed: false }
 ];
 
 const AgencyDashboard = () => {

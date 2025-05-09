@@ -4,24 +4,28 @@ import { Check } from "lucide-react";
 interface Task {
   id: string;
   title: string;
-  priority: 'high' | 'medium' | 'low';
+  priority: 'high' | 'medium' | 'low' | 'alta' | 'media' | 'baja'; // Added Spanish priority types
   dueDate?: string;
+  completed?: boolean;
 }
 
 interface TaskListProps {
   tasks: Task[];
-  title: string;
+  title?: string;
   emptyMessage?: string;
 }
 
-const TaskList = ({ tasks, title, emptyMessage = 'No hay tareas pendientes' }: TaskListProps) => {
+const TaskList = ({ tasks, title = "Tareas", emptyMessage = 'No hay tareas pendientes' }: TaskListProps) => {
   const getPriorityDot = (priority: string) => {
-    switch (priority) {
+    switch (priority.toLowerCase()) {
       case 'high':
+      case 'alta':
         return 'bg-red-500';
       case 'medium':
+      case 'media':
         return 'bg-yellow-500';
       case 'low':
+      case 'baja':
         return 'bg-green-500';
       default:
         return 'bg-gray-500';
@@ -41,7 +45,7 @@ const TaskList = ({ tasks, title, emptyMessage = 'No hay tareas pendientes' }: T
             {tasks.map((task) => (
               <li key={task.id} className="flex items-start p-3 bg-gray-50 hover:bg-gray-100 rounded-lg cursor-pointer transition-colors">
                 <div className="flex-shrink-0 h-5 w-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center hover:border-hubseguros-primary hover:bg-hubseguros-primary/10 transition-colors">
-                  <Check className="h-3 w-3 text-transparent hover:text-hubseguros-primary" />
+                  <Check className={`h-3 w-3 ${task.completed ? 'text-hubseguros-primary' : 'text-transparent'} hover:text-hubseguros-primary`} />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center">

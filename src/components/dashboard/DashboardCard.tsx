@@ -9,6 +9,8 @@ interface DashboardCardProps {
   icon?: ReactNode;
   trend?: number;
   color?: 'blue' | 'green' | 'amber' | 'red' | 'purple';
+  change?: string; // Added change property
+  timeframe?: string; // Added timeframe property
 }
 
 const DashboardCard = ({ 
@@ -17,7 +19,9 @@ const DashboardCard = ({
   subtitle, 
   icon, 
   trend,
-  color = 'blue' 
+  color = 'blue',
+  change,
+  timeframe 
 }: DashboardCardProps) => {
   const getBgColor = () => {
     switch (color) {
@@ -62,9 +66,14 @@ const DashboardCard = ({
           <p className={`text-3xl font-bold ${getTextColor()} mt-1`}>
             {value}
           </p>
-          {subtitle && (
+          {(subtitle || change) && (
             <p className="text-gray-600 text-xs mt-1">
-              {subtitle}
+              {subtitle || change}
+            </p>
+          )}
+          {timeframe && (
+            <p className="text-gray-500 text-xs mt-1">
+              {timeframe}
             </p>
           )}
           {trend !== undefined && (

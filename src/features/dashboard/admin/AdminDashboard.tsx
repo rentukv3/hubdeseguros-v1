@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import DashboardCard from '@/components/dashboard/DashboardCard';
 import TaskList from '@/components/dashboard/TaskList';
@@ -101,28 +100,28 @@ const pendingTasks = [
   { 
     id: "1", 
     title: "Revisar usuarios inactivos", 
-    priority: "alta", 
+    priority: 'alta' as 'alta', 
     dueDate: "Hoy", 
     completed: false 
   },
   { 
     id: "2", 
     title: "Aprobar solicitudes de agentes", 
-    priority: "media", 
+    priority: 'media' as 'media', 
     dueDate: "Mañana", 
     completed: false 
   },
   { 
     id: "3", 
     title: "Actualizar permisos de sistema", 
-    priority: "baja", 
+    priority: 'baja' as 'baja', 
     dueDate: "25/05/2023", 
     completed: true 
   },
   { 
     id: "4", 
     title: "Revisar logs de errores", 
-    priority: "alta", 
+    priority: 'alta' as 'alta', 
     dueDate: "25/05/2023", 
     completed: false 
   }
