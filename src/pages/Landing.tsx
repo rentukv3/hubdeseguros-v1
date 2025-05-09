@@ -2,8 +2,22 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
-import { BarChart4, Clock, Shield, Users } from 'lucide-react';
+import { 
+  BarChart4, 
+  Clock, 
+  Shield, 
+  Users, 
+  LayoutDashboard, 
+  UserCircle, 
+  FileText, 
+  AlertTriangle, 
+  DollarSign, 
+  BarChart, 
+  Settings
+} from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
+import { Card, CardContent } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 const Landing = () => {
   const { isAuthenticated, user } = useAuth();
@@ -36,7 +50,7 @@ const Landing = () => {
             </div>
             <nav className="hidden md:flex space-x-8">
               <a href="#caracteristicas" className="text-gray-600 hover:text-gray-900">Características</a>
-              <a href="#b" className="text-gray-600 hover:text-gray-900"></a>
+              <a href="#beneficios" className="text-gray-600 hover:text-gray-900">Beneficios</a>
               <a href="#soluciones" className="text-gray-600 hover:text-gray-900">Soluciones</a>
             </nav>
             <div className="flex items-center space-x-4">
@@ -72,77 +86,142 @@ const Landing = () => {
               </div>
             </div>
             <div className="lg:block hidden">
-              <div className="bg-white p-6 rounded-lg shadow-xl border-2 border-gray-800">
-                <div className="bg-gray-900 p-3 rounded-t-md flex items-center gap-2">
+              {/* Nuevo panel de control */}
+              <div className="bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden">
+                {/* Barra superior */}
+                <div className="bg-gray-900 p-3 flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  <span className="text-sm text-white ml-2">HubSeguros - Panel de control</span>
+                  <span className="text-sm text-white mx-auto">Hubseguros - Panel de control</span>
                 </div>
-                <div className="bg-white p-6 rounded-b-md">
-                  <div className="grid grid-cols-3 gap-6">
-                    <div className="bg-[#E8F0FF] p-4 rounded-md text-center">
-                      <div className="text-3xl font-bold text-[#0056FF] mb-1">124</div>
-                      <div className="text-sm text-gray-600">Pólizas activas</div>
+                
+                {/* Contenido principal del panel */}
+                <div className="flex">
+                  {/* Sidebar */}
+                  <div className="w-64 bg-white border-r border-gray-200 py-6">
+                    <div className="px-6 mb-8">
+                      <h2 className="text-xl font-semibold">
+                        Hub<span className="text-[#0056FF]">seguros</span>
+                      </h2>
                     </div>
-                    <div className="bg-[#E8F8E8] p-4 rounded-md text-center">
-                      <div className="text-3xl font-bold text-green-600 mb-1">18</div>
-                      <div className="text-sm text-gray-600">Renovaciones este mes</div>
-                    </div>
-                    <div className="bg-[#FFF8E8] p-4 rounded-md text-center">
-                      <div className="text-3xl font-bold text-amber-600 mb-1">7</div>
-                      <div className="text-sm text-gray-600">Siniestros pendientes</div>
-                    </div>
+                    
+                    <nav className="mt-6">
+                      <div className="flex items-center px-6 py-3 text-sm font-medium bg-[#E8F0FF] text-[#0056FF] border-l-4 border-[#0056FF]">
+                        <LayoutDashboard size={18} className="mr-3" />
+                        Dashboard
+                      </div>
+                      
+                      <div className="flex items-center px-6 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50">
+                        <UserCircle size={18} className="mr-3" />
+                        Clientes
+                      </div>
+                      
+                      <div className="flex items-center px-6 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50">
+                        <FileText size={18} className="mr-3" />
+                        Pólizas
+                      </div>
+                      
+                      <div className="flex items-center px-6 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50">
+                        <AlertTriangle size={18} className="mr-3" />
+                        Siniestros
+                      </div>
+                      
+                      <div className="flex items-center px-6 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50">
+                        <DollarSign size={18} className="mr-3" />
+                        Cobros
+                      </div>
+                      
+                      <div className="flex items-center px-6 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50">
+                        <BarChart size={18} className="mr-3" />
+                        Reportes
+                      </div>
+                      
+                      <div className="flex items-center px-6 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50">
+                        <Settings size={18} className="mr-3" />
+                        Configuración
+                      </div>
+                    </nav>
                   </div>
-                  <div className="mt-6">
-                    <div className="flex justify-between items-center mb-4">
-                      <h4 className="font-semibold text-lg">Vencimientos próximos</h4>
-                      <h4 className="font-semibold text-lg">Tareas pendientes</h4>
+                  
+                  {/* Contenido principal */}
+                  <div className="flex-1 bg-[#F5F7FB] p-6">
+                    {/* Tarjetas estadísticas */}
+                    <div className="grid grid-cols-3 gap-6 mb-6">
+                      <Card className="bg-[#E8F0FF] border-0 shadow-sm">
+                        <CardContent className="p-4 text-center">
+                          <p className="text-gray-600 mb-1">Pólizas activas</p>
+                          <p className="text-4xl font-bold text-[#0056FF]">124</p>
+                        </CardContent>
+                      </Card>
+                      
+                      <Card className="bg-[#E8F0FF] border-0 shadow-sm">
+                        <CardContent className="p-4 text-center">
+                          <p className="text-gray-600 mb-1">Renovaciones este mes</p>
+                          <p className="text-4xl font-bold text-green-600">18</p>
+                        </CardContent>
+                      </Card>
+                      
+                      <Card className="bg-[#FFF8E8] border-0 shadow-sm">
+                        <CardContent className="p-4 text-center">
+                          <p className="text-gray-600 mb-1">Siniestros pendientes</p>
+                          <p className="text-4xl font-bold text-amber-600">7</p>
+                        </CardContent>
+                      </Card>
                     </div>
+                    
+                    {/* Tablas de información */}
                     <div className="grid grid-cols-2 gap-6">
-                      <div>
-                        <div className="bg-white border-2 rounded-md p-3 mb-3">
-                          <div className="flex justify-between items-center">
-                            <span className="font-medium">María García</span>
-                            <span className="text-xs bg-red-100 text-red-800 rounded-full px-3 py-1">3 días</span>
-                          </div>
-                          <div className="text-sm text-gray-500 mt-1">Auto - #5842</div>
-                        </div>
-                        <div className="bg-white border-2 rounded-md p-3 mb-3">
-                          <div className="flex justify-between items-center">
-                            <span className="font-medium">Juan Pérez</span>
-                            <span className="text-xs bg-yellow-100 text-yellow-800 rounded-full px-3 py-1">5 días</span>
-                          </div>
-                          <div className="text-sm text-gray-500 mt-1">Vida - #721</div>
-                        </div>
-                        <div className="bg-white border-2 rounded-md p-3">
-                          <div className="flex justify-between items-center">
-                            <span className="font-medium">Ana Rodríguez</span>
-                            <span className="text-xs bg-blue-100 text-blue-800 rounded-full px-3 py-1">7 días</span>
-                          </div>
-                          <div className="text-sm text-gray-500 mt-1">Hogar - #343</div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="bg-white border-2 rounded-md p-3 mb-3">
-                          <div className="flex items-center">
-                            <span className="w-3 h-3 rounded-full bg-[#FF4D4F] mr-3"></span>
-                            <span className="text-sm">Llamar a cliente para renovación</span>
-                          </div>
-                        </div>
-                        <div className="bg-white border-2 rounded-md p-3 mb-3">
-                          <div className="flex items-center">
-                            <span className="w-3 h-3 rounded-full bg-[#FFC53D] mr-3"></span>
-                            <span className="text-sm">Enviar cotización seguro hogar</span>
-                          </div>
-                        </div>
-                        <div className="bg-white border-2 rounded-md p-3">
-                          <div className="flex items-center">
-                            <span className="w-3 h-3 rounded-full bg-[#69C0FF] mr-3"></span>
-                            <span className="text-sm">Actualizar datos de póliza #5423</span>
-                          </div>
-                        </div>
-                      </div>
+                      <Card className="bg-white border-0 shadow-sm">
+                        <CardContent className="p-6">
+                          <h3 className="font-semibold text-lg mb-4">Vencimientos próximos</h3>
+                          <Table>
+                            <TableBody className="text-sm">
+                              <TableRow className="border-b border-gray-100">
+                                <TableCell className="py-3 pl-0">María García</TableCell>
+                                <TableCell className="py-3 text-gray-500">Auto - 4582</TableCell>
+                                <TableCell className="py-3 pr-0">
+                                  <span className="bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full">3 días</span>
+                                </TableCell>
+                              </TableRow>
+                              <TableRow className="border-b border-gray-100">
+                                <TableCell className="py-3 pl-0">Juan Pérez</TableCell>
+                                <TableCell className="py-3 text-gray-500">Vida - 8721</TableCell>
+                                <TableCell className="py-3 pr-0">
+                                  <span className="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full">5 días</span>
+                                </TableCell>
+                              </TableRow>
+                              <TableRow>
+                                <TableCell className="py-3 pl-0">Ana Rodríguez</TableCell>
+                                <TableCell className="py-3 text-gray-500">Hogar - 2341</TableCell>
+                                <TableCell className="py-3 pr-0">
+                                  <span className="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">7 días</span>
+                                </TableCell>
+                              </TableRow>
+                            </TableBody>
+                          </Table>
+                        </CardContent>
+                      </Card>
+                      
+                      <Card className="bg-white border-0 shadow-sm">
+                        <CardContent className="p-6">
+                          <h3 className="font-semibold text-lg mb-4">Tareas pendientes</h3>
+                          <ul className="space-y-4">
+                            <li className="flex items-center">
+                              <span className="w-3 h-3 rounded-full bg-red-500 mr-3"></span>
+                              <span>Llamar a cliente para renovación</span>
+                            </li>
+                            <li className="flex items-center">
+                              <span className="w-3 h-3 rounded-full bg-orange-500 mr-3"></span>
+                              <span>Enviar cotización seguro hogar</span>
+                            </li>
+                            <li className="flex items-center">
+                              <span className="w-3 h-3 rounded-full bg-green-500 mr-3"></span>
+                              <span>Actualizar datos de póliza #5423</span>
+                            </li>
+                          </ul>
+                        </CardContent>
+                      </Card>
                     </div>
                   </div>
                 </div>
