@@ -1,7 +1,7 @@
 
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, UserRole } from '../types/auth';
+import { User, UserRole, UserLevel } from '../types/auth';
 import { toast } from '@/components/ui/use-toast';
 
 interface AuthContextProps {
@@ -21,7 +21,7 @@ const mockUsers = [
     email: 'cliente@demo.com', 
     password: 'password', 
     role: 'CLIENTE' as UserRole,
-    level: 'BASICO' 
+    level: 'BASICO' as UserLevel 
   },
   { 
     id: '2', 
@@ -29,7 +29,7 @@ const mockUsers = [
     email: 'agente@demo.com', 
     password: 'password', 
     role: 'AGENTE' as UserRole,
-    level: 'INTERMEDIO' 
+    level: 'INTERMEDIO' as UserLevel 
   },
   { 
     id: '3', 
@@ -37,7 +37,7 @@ const mockUsers = [
     email: 'agencia@demo.com', 
     password: 'password', 
     role: 'AGENCIA' as UserRole,
-    level: 'AVANZADO' 
+    level: 'AVANZADO' as UserLevel 
   },
   { 
     id: '4', 
@@ -45,7 +45,7 @@ const mockUsers = [
     email: 'admin@demo.com', 
     password: 'password', 
     role: 'ADMIN' as UserRole,
-    level: 'AVANZADO' 
+    level: 'AVANZADO' as UserLevel 
   },
 ];
 
@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       
       if (foundUser) {
         const { password, ...userWithoutPassword } = foundUser;
-        setUser(userWithoutPassword);
+        setUser(userWithoutPassword as User);
         localStorage.setItem('hubseguros_user', JSON.stringify(userWithoutPassword));
         
         // Navegar a la ruta correspondiente según el rol
