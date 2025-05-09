@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
@@ -86,22 +85,17 @@ const Landing = () => {
               </div>
             </div>
             <div className="lg:block hidden">
-              {/* Nuevo panel de control */}
+              {/* Panel de control */}
               <div className="bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden">
                 {/* Barra superior */}
-                <div className="bg-gray-900 p-3 flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  <span className="text-sm text-white mx-auto">Hubseguros - Panel de control</span>
+                <div className="bg-gray-900 p-3 flex items-center">
+                  <div className="flex items-center gap-2 absolute left-3">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  </div>
+                  <span className="text-sm text-white w-full text-center">Hubseguros - Panel de control</span>
                 </div>
-<<<<<<< HEAD
-                <div className="bg-white p-6 rounded-b-md">
-                  <div className="grid grid-cols-3 gap-6">
-                    <div className="bg-[#E8F0FF] p-4 rounded-md text-center">
-                      <div className="text-3xl font-bold text-[#0056FF] mb-1">117</div>
-                      <div className="text-sm text-gray-650">Pólizas activas</div>
-=======
                 
                 {/* Contenido principal del panel */}
                 <div className="flex">
@@ -111,18 +105,7 @@ const Landing = () => {
                       <h2 className="text-xl font-semibold">
                         Hub<span className="text-[#0056FF]">seguros</span>
                       </h2>
->>>>>>> baf24d3a4e8bdf4a5caf27be1a82aa38fd78ed32
                     </div>
-<<<<<<< HEAD
-                    <div className="bg-[#E8F0FF] p-4 rounded-md text-center">
-                      <div className="text-3xl font-bold text-[#0056FF] mb-1">17</div>
-                      <div className="text-sm text-gray-650">Renovaciones</div>
-                    </div>
-                    <div className="bg-[#E8F0FF] p-4 rounded-md text-center">
-                      <div className="text-3xl font-bold text-[#0056FF] mb-1">7</div>
-                      <div className="text-sm text-gray-650">Siniestros pendientes</div>
-                    </div>
-=======
                     
                     <nav className="mt-6">
                       <div className="flex items-center px-6 py-3 text-sm font-medium bg-[#E8F0FF] text-[#0056FF] border-l-4 border-[#0056FF]">
@@ -160,7 +143,6 @@ const Landing = () => {
                         Configuración
                       </div>
                     </nav>
->>>>>>> baf24d3a4e8bdf4a5caf27be1a82aa38fd78ed32
                   </div>
                   
                   {/* Contenido principal */}
@@ -170,14 +152,14 @@ const Landing = () => {
                       <Card className="bg-[#E8F0FF] border-0 shadow-sm">
                         <CardContent className="p-4 text-center">
                           <p className="text-gray-600 mb-1">Pólizas activas</p>
-                          <p className="text-4xl font-bold text-[#0056FF]">124</p>
+                          <p className="text-4xl font-bold text-[#0056FF]">117</p>
                         </CardContent>
                       </Card>
                       
-                      <Card className="bg-[#E8F0FF] border-0 shadow-sm">
+                      <Card className="bg-[#E8F8E8] border-0 shadow-sm">
                         <CardContent className="p-4 text-center">
                           <p className="text-gray-600 mb-1">Renovaciones este mes</p>
-                          <p className="text-4xl font-bold text-green-600">18</p>
+                          <p className="text-4xl font-bold text-green-600">17</p>
                         </CardContent>
                       </Card>
                       
@@ -231,7 +213,7 @@ const Landing = () => {
                               <span>Llamar a cliente para renovación</span>
                             </li>
                             <li className="flex items-center">
-                              <span className="w-3 h-3 rounded-full bg-orange-500 mr-3"></span>
+                              <span className="w-3 h-3 rounded-full bg-[#FFC53D] mr-3"></span>
                               <span>Enviar cotización seguro hogar</span>
                             </li>
                             <li className="flex items-center">
