@@ -83,11 +83,11 @@ const Landing = () => {
                 <div className="bg-white p-4 rounded-b-md">
                   <div className="grid grid-cols-3 gap-4">
                     <div className="bg-[#E8F0FF] p-4 rounded-md text-center">
-                      <div className="text-2xl font-bold text-blue-700">124</div>
+                      <div className="text-2xl font-bold text-blue-700">117</div>
                       <div className="text-sm text-gray-600">Pólizas activas</div>
                     </div>
                     <div className="bg-[#E8F8E8] p-4 rounded-md text-center">
-                      <div className="text-2xl font-bold text-green-600">18</div>
+                      <div className="text-2xl font-bold text-green-600">17</div>
                       <div className="text-sm text-gray-600">Renovaciones este mes</div>
                     </div>
                     <div className="bg-[#FFF8E8] p-4 rounded-md text-center">
