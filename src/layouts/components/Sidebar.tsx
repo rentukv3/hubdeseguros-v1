@@ -115,7 +115,6 @@ const Sidebar = () => {
 
   const getMenuByRole = (role: string): MenuSection[] => {
     const roleRoute = role.toLowerCase();
-
     const baseMenu: MenuSection[] = [
       {
         title: "PRINCIPAL",
