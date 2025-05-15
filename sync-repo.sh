@@ -133,4 +133,13 @@ else
     echo -e "${YELLOW}Puedes intentar: ${BLUE}git config --global credential.helper cache${NC}"
     exit 1
   fi
-fi 
+fi
+
+echo -e "${YELLOW}Estado actual de la rama:${NC}"
+git status
+echo -e "${YELLOW}Rama actual:${NC}"
+git branch
+echo -e "${YELLOW}Remotos configurados:${NC}"
+git remote -v
+
+git checkout main 
