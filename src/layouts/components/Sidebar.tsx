@@ -2,10 +2,53 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { getRoutesByRole } from '../../routes/routes.config';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { ChevronLeft, ChevronRight, LogOut } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
+import { ChevronLeft, ChevronRight, LogOut, 
+  FiBarChart2, 
+  FiUser, 
+  FiLaptop, 
+  FiUsers, 
+  FiCheckSquare, 
+  FiFileText, 
+  FiDollarSign, 
+  FiBox, 
+  FiClipboard, 
+  FiPieChart, 
+  FiFile, 
+  FiAlertTriangle, 
+  FiMail, 
+  FiSettings, 
+  FiInfo, 
+  FiMapPin, 
+  FiShield, 
+  FiGrid, 
+  FiList, 
+  FiUpload, 
+  FiUserPlus, 
+  FiPaperclip,
+  FiArrowUpRight,
+  FiHome 
+} from 'lucide-react';
+
+type LucideIcon = (props: { size?: number; className?: string }) => JSX.Element;
+
+interface MenuItem {
+  key: string;
+  label: string;
+  icon: LucideIcon;
+  path: string;
+  subMenu?: MenuItem[];
+  isOpen?: boolean;
+  target?: string;
+}
+
+interface MenuSection {
+  title?: string;
+  items: MenuItem[];
+  isDivider?: boolean;
+}
 
 const Sidebar = () => {
   const { user, logout } = useAuth();
@@ -13,33 +56,469 @@ const Sidebar = () => {
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const [activeKey, setActiveKey] = useState('');
-  
-  // Obtenemos las rutas según el rol del usuario
-  const routeConfig = user ? getRoutesByRole(user.role) : null;
+  const [menuSections, setMenuSections] = useState<MenuSection[]>([]);
 
-  // Actualizamos la ruta activa basada en la ubicación actual
+  useEffect(() => {
+    if (user) {
+      const menuConfig = getMenuByRole(user.role);
+      setMenuSections(menuConfig);
+    }
+  }, [user]);
+
   useEffect(() => {
     const path = location.pathname;
-    
-    // Buscar la sección y el item activo
-    if (routeConfig) {
-      for (const section of routeConfig.sections) {
+    if (menuSections) {
+      for (const section of menuSections) {
         for (const item of section.items) {
           if (path === item.path || path.startsWith(item.path + '/')) {
             setActiveKey(item.key);
+            if (item.subMenu) {
+              toggleSubMenu(item.key);
+            }
             break;
+          }
+          if (item.subMenu) {
+            for (const subItem of item.subMenu) {
+              if (path === subItem.path || path.startsWith(subItem.path + '/')) {
+                setActiveKey(subItem.key);
+                toggleSubMenu(item.key);
+                break;
+              }
+            }
           }
         }
       }
     }
-  }, [location.pathname, routeConfig]);
+  }, [location.pathname, menuSections]);
 
-  const handleItemClick = (path: string, key: string) => {
-    navigate(path);
-    setActiveKey(key);
+  const handleItemClick = (path: string, key: string, target?: string) => {
+    if (target === '_blank') {
+      window.open(path, '_blank');
+    } else {
+      setActiveKey(key);
+      navigate(path);
+    }
   };
 
-  if (!user || !routeConfig) return null;
+  const toggleSubMenu = (key: string) => {
+    setMenuSections(prevSections => 
+      prevSections.map(section => ({
+        ...section,
+        items: section.items.map(item => {
+          if (item.key === key) {
+            return { ...item, isOpen: !item.isOpen };
+          }
+          return item;
+        })
+      }))
+    );
+  };
+
+  const getMenuByRole = (role: string): MenuSection[] => {
+    const roleRoute = role.toLowerCase();
+
+    const baseMenu: MenuSection[] = [
+      {
+        title: "PRINCIPAL",
+        items: [
+          { 
+            key: 'inicio', 
+            label: 'Inicio', 
+            icon: FiBarChart2, 
+            path: `/${roleRoute}/dashboard` 
+          },
+          { 
+            key: 'clientes', 
+            label: 'Clientes', 
+            icon: FiUser, 
+            path: `/${roleRoute}/clientes`,
+            isOpen: true,
+            subMenu: [
+              { 
+                key: 'listado-clientes', 
+                label: 'Listado de Clientes', 
+                icon: FiUser, 
+                path: `/${roleRoute}/clientes/listado` 
+              },
+              { 
+                key: 'crm', 
+                label: 'Asistente Comercial/CRM', 
+                icon: FiLaptop, 
+                path: `/${roleRoute}/clientes/crm` 
+              }
+            ]
+          },
+          { 
+            key: 'polizas', 
+            label: 'Pólizas', 
+            icon: FiUsers, 
+            path: `/${roleRoute}/polizas`,
+            isOpen: true,
+            subMenu: [
+              { 
+                key: 'listado-polizas', 
+                label: 'Listado de Pólizas', 
+                icon: FiUsers, 
+                path: `/${roleRoute}/polizas/listado` 
+              },
+              { 
+                key: 'cumplimiento', 
+                label: 'Cumplimiento, Judicial, etc', 
+                icon: FiUsers, 
+                path: `/${roleRoute}/polizas/cumplimiento` 
+              }
+            ]
+          },
+          { 
+            key: 'remisiones', 
+            label: 'Remisiones', 
+            icon: FiCheckSquare, 
+            path: `/${roleRoute}/remisiones` 
+          },
+          { 
+            key: 'tareas', 
+            label: 'Tareas', 
+            icon: FiFileText, 
+            path: `/${roleRoute}/tareas` 
+          },
+          { 
+            key: 'cobros', 
+            label: 'Cobros', 
+            icon: FiDollarSign, 
+            path: `/${roleRoute}/cobros`,
+            subMenu: [
+              { 
+                key: 'listado-pagos', 
+                label: 'Listado de pagos', 
+                icon: FiDollarSign, 
+                path: `/${roleRoute}/cobros/pagos` 
+              },
+              { 
+                key: 'recibos', 
+                label: 'Recibos y Cuadre de caja', 
+                icon: FiBox, 
+                path: `/${roleRoute}/cobros/recibos` 
+              },
+              { 
+                key: 'liquidar', 
+                label: 'Liquidar vendedores', 
+                icon: FiClipboard, 
+                path: `/${roleRoute}/cobros/liquidar` 
+              }
+            ]
+          },
+          { 
+            key: 'informes', 
+            label: 'Informes', 
+            icon: FiPieChart, 
+            path: `/${roleRoute}/informes` 
+          }
+        ]
+      },
+      {
+        isDivider: true,
+        items: []
+      },
+      {
+        title: "GESTIÓN",
+        items: [
+          { 
+            key: 'archivos', 
+            label: 'Archivos', 
+            icon: FiFile, 
+            path: `/${roleRoute}/archivos` 
+          },
+          { 
+            key: 'siniestros', 
+            label: 'Siniestros', 
+            icon: FiAlertTriangle, 
+            path: `/${roleRoute}/siniestros` 
+          },
+          { 
+            key: 'facturas', 
+            label: 'Facturas', 
+            icon: FiFileText, 
+            path: `/${roleRoute}/facturas` 
+          },
+          { 
+            key: 'diligencias', 
+            label: 'Diligencias', 
+            icon: FiMail, 
+            path: `/${roleRoute}/diligencias` 
+          }
+        ]
+      }
+    ];
+
+    if (role === 'AGENCIA' || role === 'ADMIN') {
+      baseMenu.push(
+        {
+          isDivider: true,
+          items: []
+        },
+        {
+          title: "CONFIGURACIÓN",
+          items: [
+            { 
+              key: 'config-agencia', 
+              label: 'Configuración Agencia', 
+              icon: FiSettings, 
+              path: `/${roleRoute}/configuracion`,
+              isOpen: true,
+              subMenu: [
+                { 
+                  key: 'usuarios', 
+                  label: 'Usuarios', 
+                  icon: FiUsers, 
+                  path: `/${roleRoute}/configuracion/usuarios` 
+                },
+                { 
+                  key: 'info-agencia', 
+                  label: 'Información de agencia', 
+                  icon: FiInfo, 
+                  path: `/${roleRoute}/configuracion/informacion` 
+                },
+                { 
+                  key: 'sedes', 
+                  label: 'Sedes', 
+                  icon: FiMapPin, 
+                  path: `/${roleRoute}/configuracion/sedes` 
+                },
+                { 
+                  key: 'aseguradoras', 
+                  label: 'Aseguradoras', 
+                  icon: FiShield, 
+                  path: `/${roleRoute}/configuracion/aseguradoras` 
+                },
+                { 
+                  key: 'ramos', 
+                  label: 'Ramos', 
+                  icon: FiGrid, 
+                  path: `/${roleRoute}/configuracion/ramos` 
+                },
+                { 
+                  key: 'vendedores', 
+                  label: 'Vendedores', 
+                  icon: FiList, 
+                  path: `/${roleRoute}/configuracion/vendedores` 
+                },
+                { 
+                  key: 'estados-siniestros', 
+                  label: 'Estados Siniestros', 
+                  icon: FiMail, 
+                  path: `/${roleRoute}/configuracion/estados-siniestros` 
+                },
+                { 
+                  key: 'estados-arl', 
+                  label: 'Estados ARL', 
+                  icon: FiAlertTriangle, 
+                  path: `/${roleRoute}/configuracion/estados-arl` 
+                },
+                { 
+                  key: 'motivos-estados', 
+                  label: 'Motivos estados póliza', 
+                  icon: FiFileText, 
+                  path: `/${roleRoute}/configuracion/motivos-estados` 
+                },
+                { 
+                  key: 'tipo-afiliacion', 
+                  label: 'Tipo afiliación', 
+                  icon: FiClipboard, 
+                  path: `/${roleRoute}/configuracion/tipo-afiliacion` 
+                },
+                { 
+                  key: 'mensajeros', 
+                  label: 'Mensajeros', 
+                  icon: FiMail, 
+                  path: `/${roleRoute}/configuracion/mensajeros` 
+                },
+                { 
+                  key: 'coberturas', 
+                  label: 'Coberturas', 
+                  icon: FiList, 
+                  path: `/${roleRoute}/configuracion/coberturas` 
+                }
+              ]
+            },
+            { 
+              key: 'importar-plantillas', 
+              label: 'Importar Plantillas', 
+              icon: FiUpload, 
+              path: `/${roleRoute}/importar`,
+              subMenu: [
+                { 
+                  key: 'imp-aseguradoras', 
+                  label: 'Aseguradoras', 
+                  icon: FiShield, 
+                  path: `/${roleRoute}/importar/aseguradoras`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-ramos', 
+                  label: 'Ramos', 
+                  icon: FiGrid, 
+                  path: `/${roleRoute}/importar/ramos`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-vendedores', 
+                  label: 'Vendedores', 
+                  icon: FiList, 
+                  path: `/${roleRoute}/importar/vendedores`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-clientes', 
+                  label: 'Clientes', 
+                  icon: FiUser, 
+                  path: `/${roleRoute}/importar/clientes`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-polizas', 
+                  label: 'Pólizas', 
+                  icon: FiUsers, 
+                  path: `/${roleRoute}/importar/polizas`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-polizas-cumplimiento', 
+                  label: 'Pólizas de cumplimiento y judicial', 
+                  icon: FiUsers, 
+                  path: `/${roleRoute}/importar/polizas-cumplimiento`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-campos-ramo', 
+                  label: 'Campos adicionales por ramo', 
+                  icon: FiGrid, 
+                  path: `/${roleRoute}/importar/campos-ramo`
+                },
+                { 
+                  key: 'imp-anexos', 
+                  label: 'Anexos', 
+                  icon: FiPaperclip, 
+                  path: `/${roleRoute}/importar/anexos`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-cobros', 
+                  label: 'Cobros', 
+                  icon: FiDollarSign, 
+                  path: `/${roleRoute}/importar/cobros`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-vinculados', 
+                  label: 'Vinculados pólizas colectivas', 
+                  icon: FiUsers, 
+                  path: `/${roleRoute}/importar/vinculados`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-beneficiarios', 
+                  label: 'Beneficiarios', 
+                  icon: FiUserPlus, 
+                  path: `/${roleRoute}/importar/beneficiarios`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-crm', 
+                  label: 'Asistente Comercial/CRM', 
+                  icon: FiLaptop, 
+                  path: `/${roleRoute}/importar/crm`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-siniestros', 
+                  label: 'Importar Siniestros', 
+                  icon: FiAlertTriangle, 
+                  path: `/${roleRoute}/importar/siniestros`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-amparos', 
+                  label: 'Importar Amparos Siniestros', 
+                  icon: FiAlertTriangle, 
+                  path: `/${roleRoute}/importar/amparos`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-coberturas', 
+                  label: 'Coberturas', 
+                  icon: FiList, 
+                  path: `/${roleRoute}/importar/coberturas`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-tareas', 
+                  label: 'Tareas', 
+                  icon: FiFileText, 
+                  path: `/${roleRoute}/importar/tareas`,
+                  target: '_blank'
+                },
+                { 
+                  key: 'imp-datos-adicionales', 
+                  label: 'Importar datos adicionales de clientes', 
+                  icon: FiFileText, 
+                  path: `/${roleRoute}/importar/datos-adicionales`
+                }
+              ]
+            }
+          ]
+        }
+      );
+    }
+
+    if (role === 'CLIENTE') {
+      return [
+        {
+          title: "MI CUENTA",
+          items: [
+            { 
+              key: 'inicio', 
+              label: 'Inicio', 
+              icon: FiHome, 
+              path: `/usuario/dashboard` 
+            },
+            { 
+              key: 'mis-polizas', 
+              label: 'Mis Pólizas', 
+              icon: FiUsers, 
+              path: `/usuario/mis-polizas` 
+            },
+            { 
+              key: 'siniestros', 
+              label: 'Siniestros', 
+              icon: FiAlertTriangle, 
+              path: `/usuario/siniestros` 
+            },
+            { 
+              key: 'pagos', 
+              label: 'Pagos', 
+              icon: FiDollarSign, 
+              path: `/usuario/pagos` 
+            },
+            { 
+              key: 'documentos', 
+              label: 'Documentos', 
+              icon: FiFile, 
+              path: `/usuario/documentos` 
+            },
+            { 
+              key: 'cotizaciones', 
+              label: 'Cotizaciones', 
+              icon: FiFileText, 
+              path: `/usuario/cotizaciones` 
+            }
+          ]
+        }
+      ];
+    }
+    return baseMenu;
+  };
+
+  if (!user) return null;
 
   return (
     <div className={`h-screen bg-[#1e2e4a] transition-all duration-300 ${collapsed ? 'w-16' : 'w-64'} flex flex-col shadow-lg`}>
@@ -47,12 +526,12 @@ const Sidebar = () => {
       <div className={`flex items-center p-4 ${collapsed ? 'justify-center' : 'justify-between'} border-b border-[#2a3c5a]`}>
         {!collapsed && (
           <div className="flex items-center">
-            <span className="text-white font-bold text-xl">SeguroHub</span>
+            <span className="text-white font-bold text-xl">HubSeguros</span>
           </div>
         )}
         {collapsed && (
           <div className="flex items-center justify-center">
-            <span className="text-white font-bold text-xl">SH</span>
+            <span className="text-white font-bold text-xl">HS</span>
           </div>
         )}
         <Button
@@ -84,50 +563,78 @@ const Sidebar = () => {
 
       {/* Menú de navegación */}
       <div className="flex-1 overflow-y-auto py-4">
-        {routeConfig.sections.map((section) => (
-          <div key={section.title} className="mb-6">
-            {!collapsed && (
-              <h3 className="text-xs font-semibold tracking-wider uppercase text-gray-400 mb-2 px-4">{section.title}</h3>
-            )}
-            <ul>
-              {section.items.map((item) => (
-                <TooltipProvider key={item.key} delayDuration={300}>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <li 
-                        className={`flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-[#2a3c5a] rounded-md transition-colors cursor-pointer mb-1 ${
-                          activeKey === item.key ? 'bg-[#2a3c5a] font-medium text-blue-400' : ''
-                        }`}
-                        onClick={() => handleItemClick(item.path, item.key)}
-                      >
-                        <div className="relative">
-                          <item.icon size={18} />
-                          {item.notificationCount && (
-                            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                              {item.notificationCount}
-                            </span>
+        {menuSections.map((section, sectionIndex) => (
+          <div key={`section-${sectionIndex}`}>
+            {section.isDivider ? (
+              <Separator className="my-3 bg-[#2a3c5a]" />
+            ) : (
+              <div className="mb-4">
+                {!collapsed && section.title && (
+                  <h3 className="text-xs font-semibold tracking-wider uppercase text-gray-400 mb-2 px-4">{section.title}</h3>
+                )}
+                <ul>
+                  {section.items.map((item) => (
+                    <li key={item.key}>
+                      <TooltipProvider delayDuration={300}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <div 
+                              className={`flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-[#2a3c5a] rounded-md transition-colors cursor-pointer ${
+                                activeKey === item.key ? 'bg-[#2a3c5a] font-medium text-blue-400' : ''
+                              }`}
+                              onClick={() => {
+                                if (item.subMenu) {
+                                  toggleSubMenu(item.key);
+                                } else {
+                                  handleItemClick(item.path, item.key, item.target);
+                                }
+                              }}
+                            >
+                              <div className="mr-2"><item.icon size={18} /></div>
+                              {!collapsed && (
+                                <span className="ml-1">{item.label}</span>
+                              )}
+                              {!collapsed && item.subMenu && (
+                                <div className="ml-auto">
+                                  <ChevronRight size={16} className={`transition-transform ${item.isOpen ? 'rotate-90' : ''}`} />
+                                </div>
+                              )}
+                            </div>
+                          </TooltipTrigger>
+                          {collapsed && (
+                            <TooltipContent side="right">
+                              <p>{item.label}</p>
+                            </TooltipContent>
                           )}
-                        </div>
-                        {!collapsed && (
-                          <span className="ml-3">{item.label}</span>
-                        )}
-                        {!collapsed && item.notificationCount && (
-                          <span className="ml-auto bg-red-500 text-white text-xs rounded-full h-5 px-1.5 flex items-center justify-center">
-                            {item.notificationCount}
-                          </span>
-                        )}
-                      </li>
-                    </TooltipTrigger>
-                    {collapsed && (
-                      <TooltipContent side="right">
-                        <p>{item.label}</p>
-                        {item.tooltip && <p className="text-xs opacity-70">{item.tooltip}</p>}
-                      </TooltipContent>
-                    )}
-                  </Tooltip>
-                </TooltipProvider>
-              ))}
-            </ul>
+                        </Tooltip>
+                      </TooltipProvider>
+                      
+                      {/* Submenú */}
+                      {!collapsed && item.subMenu && item.isOpen && (
+                        <ul className="ml-6 mt-1 border-l border-[#2a3c5a] pl-2">
+                          {item.subMenu.map((subItem) => (
+                            <li key={subItem.key}>
+                              <div 
+                                className={`flex items-center px-4 py-1.5 text-sm text-gray-300 hover:bg-[#2a3c5a] rounded-md transition-colors cursor-pointer ${
+                                  activeKey === subItem.key ? 'bg-[#2a3c5a] font-medium text-blue-400' : ''
+                                }`}
+                                onClick={() => handleItemClick(subItem.path, subItem.key, subItem.target)}
+                              >
+                                <div className="mr-2"><subItem.icon size={18} /></div>
+                                <span>{subItem.label}</span>
+                                {subItem.target === '_blank' && (
+                                  <FiArrowUpRight size={14} className="ml-1 text-xs" />
+                                )}
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         ))}
       </div>
