@@ -24,10 +24,10 @@ Follow these steps:
 
 ```sh
 # Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+git clone https://github.com/Hubdeseguros/hubdeseguros-v1.git
 
 # Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+cd hubdeseguros-v1
 
 # Step 3: Install the necessary dependencies.
 npm i
@@ -62,7 +62,7 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/315697c9-550b-4cb8-b63b-f6411d2a264a) and click on Share -> Publish.
+Simply open [Lovable] and click on Share -> Publish.
 
 ## Can I connect a custom domain to my Lovable project?
 
