@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
@@ -33,7 +32,7 @@ import {
   Home 
 } from 'lucide-react';
 
-type MenuIcon = React.ComponentType<{ size?: number; className?: string }>;
+type MenuIcon = React.ComponentType<{ size?: string | number; className?: string }>;
 
 interface MenuItem {
   key: string;
