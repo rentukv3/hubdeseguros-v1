@@ -1,10 +1,12 @@
+
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Separator } from '@/components/ui/separator';
-import { ChevronLeft, ChevronRight, LogOut, 
+import {
+  ChevronLeft, ChevronRight, LogOut, 
   BarChart2, 
   FileUser, 
   Laptop, 
@@ -31,12 +33,12 @@ import { ChevronLeft, ChevronRight, LogOut,
   Home 
 } from 'lucide-react';
 
-type LucideIcon = (props: { size?: number; className?: string }) => JSX.Element;
+type MenuIcon = React.ComponentType<{ size?: number; className?: string }>;
 
 interface MenuItem {
   key: string;
   label: string;
-  icon: LucideIcon;
+  icon: MenuIcon;
   path: string;
   subMenu?: MenuItem[];
   isOpen?: boolean;
