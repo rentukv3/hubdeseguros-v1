@@ -71,3 +71,21 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## Sincronización Automática del Repositorio
+
+Para facilitar la sincronización del repositorio con GitHub, se ha creado un script de automatización:
+
+1. El script `sync-repo.sh` permite sincronizar todos los cambios en un solo paso
+2. Uso: `./sync-repo.sh "Mensaje del commit"`
+
+Ejemplo:
+```bash
+./sync-repo.sh "Actualización del módulo de login"
+```
+
+Este script realiza las siguientes acciones:
+- Actualiza tu repositorio local (git pull)
+- Agrega todos tus cambios (git add .)
+- Realiza el commit con tu mensaje
+- Sube los cambios a GitHub
