@@ -11,13 +11,60 @@ const Register = lazy(() => import('../pages/Register'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const Landing = lazy(() => import('../pages/Landing'));
 
-// Dashboards específicos por rol
-const UserDashboard = lazy(() => import('../features/dashboard/user/UserDashboard'));
-const AgentDashboard = lazy(() => import('../features/dashboard/agent/AgentDashboard'));
-const AgencyDashboard = lazy(() => import('../features/dashboard/agency/AgencyDashboard'));
-const AdminDashboard = lazy(() => import('../features/dashboard/admin/AdminDashboard'));
+// Importar las nuevas páginas (sin lazy loading según la solicitud)
+// Admin pages
+import VistaGeneral from '../pages/admin/VistaGeneral';
+import Usuarios from '../pages/admin/Usuarios';
+import Agencias from '../pages/admin/Agencias';
+import AgentesAdmin from '../pages/admin/Agentes'; // Renamed to avoid conflict
+import Roles from '../pages/admin/Roles';
+import Permisos from '../pages/admin/Permisos';
+import Logs from '../pages/admin/Logs';
+import Backups from '../pages/admin/Backups';
+import ConfiguracionAdmin from '../pages/admin/Configuracion'; // Renamed
+import Notificaciones from '../pages/admin/Notificaciones';
 
-// Páginas de ejemplo para cada sección
+// Agencia pages
+import ClientesAgencia from '../pages/agencia/Clientes';
+import PolizasAgencia from '../pages/agencia/Polizas';
+import SiniestrosAgencia from '../pages/agencia/Siniestros';
+import VentasAgencia from '../pages/agencia/Ventas';
+import CobrosAgencia from '../pages/agencia/Cobros';
+import LeadsAgencia from '../pages/agencia/Leads';
+import AgentesAgencia from '../pages/agencia/Agentes'; // Renamed
+import Ramos from '../pages/agencia/Ramos';
+import Aseguradoras from '../pages/agencia/Aseguradoras';
+import EstadisticasAgencia from '../pages/agencia/Estadisticas';
+import CotizacionesAgencia from '../pages/agencia/Cotizaciones';
+import Archivos from '../pages/agencia/Archivos';
+import FacturasAgencia from '../pages/agencia/Facturas';
+import ConfiguracionAgencia from '../pages/agencia/Configuracion'; // Renamed
+import TareasAgencia from '../pages/agencia/Tareas'; // Renamed
+import CalendarioAgencia from '../pages/agencia/Calendario';
+
+// Agente pages
+import DashboardAgente from '../pages/agente/Dashboard';
+import ClientesAgente from '../pages/agente/Clientes';
+import PolizasAgente from '../pages/agente/Polizas';
+import SiniestrosAgente from '../pages/agente/Siniestros';
+import VentasAgente from '../pages/agente/Ventas';
+import CobrosAgente from '../pages/agente/Cobros';
+import LeadsAgente from '../pages/agente/Leads';
+import TareasAgente from '../pages/agente/Tareas'; // Renamed
+import CalendarioAgente from '../pages/agente/Calendario';
+import EstadisticasAgente from '../pages/agente/Estadisticas';
+import CotizacionesAgente from '../pages/agente/Cotizaciones';
+import FacturasAgente from '../pages/agente/Facturas';
+
+// Usuario pages
+import DashboardUsuario from '../pages/usuario/Dashboard';
+import MisPolizas from '../pages/usuario/MisPolizas';
+import SiniestrosUsuario from '../pages/usuario/Siniestros';
+import Pagos from '../pages/usuario/Pagos';
+import Documentos from '../pages/usuario/Documentos';
+import CotizacionesUsuario from '../pages/usuario/Cotizaciones';
+
+// Placeholder para rutas no actualizadas
 const Placeholder = lazy(() => import('../components/common/Placeholder'));
 
 const LoadingFallback = () => (
@@ -60,61 +107,67 @@ const AppRoutes = () => {
 
         {/* Rutas para CLIENTE */}
         <Route path="/usuario" element={<PrivateRoute allowedRoles={['CLIENTE', 'ADMIN']} />}>
-          <Route path="dashboard" element={<UserDashboard />} />
-          <Route path="mis-polizas" element={<Placeholder title="Mis Pólizas" description="Visualiza y administra todas tus pólizas activas, vencidas y en proceso." />} />
-          <Route path="siniestros" element={<Placeholder title="Siniestros" description="Reporta y da seguimiento a tus reclamaciones de siniestros." />} />
-          <Route path="pagos" element={<Placeholder title="Pagos" description="Realiza pagos, consulta tu historial y programa pagos futuros." />} />
-          <Route path="documentos" element={<Placeholder title="Documentos" description="Biblioteca digital con todos tus documentos importantes." />} />
-          <Route path="cotizaciones" element={<Placeholder title="Cotizaciones" description="Solicita nuevas cotizaciones o revisa cotizaciones pendientes." />} />
+          <Route path="dashboard" element={<DashboardUsuario />} />
+          <Route path="mis-polizas" element={<MisPolizas />} />
+          <Route path="siniestros" element={<SiniestrosUsuario />} />
+          <Route path="pagos" element={<Pagos />} />
+          <Route path="documentos" element={<Documentos />} />
+          <Route path="cotizaciones" element={<CotizacionesUsuario />} />
         </Route>
 
         {/* Rutas para AGENTE */}
         <Route path="/agente" element={<PrivateRoute allowedRoles={['AGENTE', 'ADMIN']} />}>
-          <Route path="dashboard" element={<AgentDashboard />} />
-          <Route path="clientes" element={<Placeholder title="Clientes" description="Gestiona tu cartera de clientes y prospectos." />} />
-          <Route path="polizas" element={<Placeholder title="Pólizas" description="Administra todas las pólizas de tus clientes." />} />
-          <Route path="siniestros" element={<Placeholder title="Siniestros" description="Seguimiento de siniestros reportados por tus clientes." />} />
-          <Route path="ventas" element={<Placeholder title="Ventas" description="Consulta tus ventas realizadas y comisiones generadas." />} />
-          <Route path="cobros" element={<Placeholder title="Cobros" description="Gestiona cobros pendientes y pagos recibidos." />} />
-          <Route path="leads" element={<Placeholder title="Leads" description="Seguimiento a prospectos y oportunidades de venta." />} />
-          <Route path="tareas" element={<Placeholder title="Tareas" description="Administra tus actividades diarias y pendientes." />} />
-          <Route path="calendario" element={<Placeholder title="Calendario" description="Agenda de citas y recordatorios importantes." />} />
-          <Route path="estadisticas" element={<Placeholder title="Estadísticas" description="Análisis de rendimiento y métricas clave." />} />
-          <Route path="cotizaciones" element={<Placeholder title="Cotizaciones" description="Genera y administra cotizaciones para clientes." />} />
-          <Route path="facturas" element={<Placeholder title="Facturas" description="Control de facturación y documentos fiscales." />} />
+          <Route path="dashboard" element={<DashboardAgente />} />
+          <Route path="clientes" element={<ClientesAgente />} />
+          <Route path="polizas" element={<PolizasAgente />} />
+          <Route path="siniestros" element={<SiniestrosAgente />} />
+          <Route path="ventas" element={<VentasAgente />} />
+          <Route path="cobros" element={<CobrosAgente />} />
+          <Route path="leads" element={<LeadsAgente />} />
+          <Route path="tareas" element={<TareasAgente />} />
+          <Route path="calendario" element={<CalendarioAgente />} />
+          <Route path="estadisticas" element={<EstadisticasAgente />} />
+          <Route path="cotizaciones" element={<CotizacionesAgente />} />
+          <Route path="facturas" element={<FacturasAgente />} />
         </Route>
 
         {/* Rutas para AGENCIA */}
         <Route path="/agencia" element={<PrivateRoute allowedRoles={['AGENCIA', 'ADMIN']} />}>
-          <Route path="dashboard" element={<AgencyDashboard />} />
-          <Route path="clientes" element={<Placeholder title="Clientes" description="Base de datos completa de clientes de la agencia." />} />
-          <Route path="polizas" element={<Placeholder title="Pólizas" description="Gestión centralizada de todas las pólizas." />} />
-          <Route path="siniestros" element={<Placeholder title="Siniestros" description="Control y seguimiento de todos los siniestros reportados." />} />
-          <Route path="ventas" element={<Placeholder title="Ventas" description="Control de ventas, renovaciones y métricas de negocio." />} />
-          <Route path="cobros" element={<Placeholder title="Cobros" description="Sistema integral de cobros y pagos recibidos." />} />
-          <Route path="leads" element={<Placeholder title="Leads" description="Administración de prospectos y oportunidades de venta." />} />
-          <Route path="agentes" element={<Placeholder title="Agentes" description="Gestión de agentes y estructura organizacional." />} />
-          <Route path="ramos" element={<Placeholder title="Ramos" description="Configuración de ramos y productos ofrecidos." />} />
-          <Route path="aseguradoras" element={<Placeholder title="Aseguradoras" description="Relación con compañías aseguradoras y productos." />} />
-          <Route path="estadisticas" element={<Placeholder title="Estadísticas" description="Análisis avanzado de rendimiento y KPIs." />} />
-          <Route path="cotizaciones" element={<Placeholder title="Cotizaciones" description="Gestión centralizada de cotizaciones." />} />
-          <Route path="archivos" element={<Placeholder title="Archivos" description="Repositorio digital de documentos." />} />
-          <Route path="facturas" element={<Placeholder title="Facturas" description="Sistema de facturación y control contable." />} />
-          <Route path="configuracion" element={<Placeholder title="Configuración" description="Ajustes generales del sistema." />} />
+          <Route path="dashboard" element={<ClientesAgencia />} /> {/* Dashboard de agencia ahora es ClientesAgencia */}
+          <Route path="clientes" element={<ClientesAgencia />} />
+          <Route path="polizas" element={<PolizasAgencia />} />
+          <Route path="siniestros" element={<SiniestrosAgencia />} />
+          <Route path="ventas" element={<VentasAgencia />} />
+          <Route path="cobros" element={<CobrosAgencia />} />
+          <Route path="leads" element={<LeadsAgencia />} />
+          <Route path="agentes" element={<AgentesAgencia />} />
+          <Route path="ramos" element={<Ramos />} />
+          <Route path="aseguradoras" element={<Aseguradoras />} />
+          <Route path="estadisticas" element={<EstadisticasAgencia />} />
+          <Route path="cotizaciones" element={<CotizacionesAgencia />} />
+          <Route path="archivos" element={<Archivos />} />
+          <Route path="facturas" element={<FacturasAgencia />} />
+          <Route path="configuracion" element={<ConfiguracionAgencia />} />
+          {/* Tareas para agencia estaba como 'Tareas' en la definición del componente, no 'TareasAgencia'. Ajustado a TareasAgencia */}
+          <Route path="tareas" element={<TareasAgencia />} /> 
+          <Route path="calendario" element={<CalendarioAgencia />} />
         </Route>
 
         {/* Rutas para ADMIN */}
         <Route path="/admin" element={<PrivateRoute allowedRoles={['ADMIN']} />}>
-          <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="vista-general" element={<AdminDashboard />} />
-          <Route path="usuarios" element={<Placeholder title="Gestión de Usuarios" description="Administración centralizada de todos los usuarios del sistema." />} />
-          <Route path="agencias" element={<Placeholder title="Gestión de Agencias" description="Control y configuración de las agencias registradas." />} />
-          <Route path="agentes" element={<Placeholder title="Gestión de Agentes" description="Administración de agentes en toda la plataforma." />} />
-          <Route path="roles" element={<Placeholder title="Gestión de Roles" description="Configuración de roles y permisos del sistema." />} />
-          <Route path="permisos" element={<Placeholder title="Gestión de Permisos" description="Administración detallada de permisos por rol y usuario." />} />
-          <Route path="logs" element={<Placeholder title="Logs del Sistema" description="Registro de todas las operaciones realizadas en la plataforma." />} />
-          <Route path="backups" element={<Placeholder title="Copias de Seguridad" description="Sistema de respaldo y recuperación de datos." />} />
-          <Route path="configuracion" element={<Placeholder title="Configuración del Sistema" description="Panel de configuración global de la plataforma." />} />
+          <Route path="dashboard" element={<VistaGeneral />} />
+          <Route path="vista-general" element={<VistaGeneral />} />
+          <Route path="usuarios" element={<Usuarios />} />
+          <Route path="agencias" element={<Agencias />} />
+          <Route path="agentes" element={<AgentesAdmin />} />
+          {/* Añadiendo ruta para Notificaciones que estaba en el Sidebar pero no en AppRoutes */}
+          <Route path="notificaciones" element={<Notificaciones />} /> 
+          <Route path="roles" element={<Roles />} />
+          <Route path="permisos" element={<Permisos />} />
+          <Route path="logs" element={<Logs />} />
+          <Route path="backups" element={<Backups />} />
+          <Route path="configuracion" element={<ConfiguracionAdmin />} />
+          {/* Rutas restantes para Admin que usan Placeholder */}
           <Route path="actividades" element={<Placeholder title="Registro de Actividades" description="Historial detallado de acciones de usuarios." />} />
           <Route path="sistema" element={<Placeholder title="Estado del Sistema" description="Monitoreo de estado y rendimiento del sistema." />} />
           <Route path="metricas/alertas" element={<Placeholder title="Alertas del Sistema" description="Centro de notificaciones de incidentes críticos." />} />
