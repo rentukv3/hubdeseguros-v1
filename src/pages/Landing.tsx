@@ -1,17 +1,17 @@
-
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 import { BarChart4, Clock, Shield, Users } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
-
 const Landing = () => {
-  const { isAuthenticated, user } = useAuth();
-  
+  const {
+    isAuthenticated,
+    user
+  } = useAuth();
+
   // Determinar a dónde redirigir según el rol
   const getDashboardLink = () => {
     if (!isAuthenticated) return '/login';
-    
     switch (user?.role) {
       case 'CLIENTE':
         return '/usuario/dashboard';
@@ -25,9 +25,7 @@ const Landing = () => {
         return '/dashboard';
     }
   };
-
-  return (
-    <div className="min-h-screen flex flex-col bg-white">
+  return <div className="min-h-screen flex flex-col bg-white">
       {/* Header */}
       <header className="bg-white border-b border-gray-100 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -369,17 +367,9 @@ const Landing = () => {
       </footer>
 
       {/* Botón flotante de WhatsApp */}
-      <a 
-        href="https://wa.me/1234567890" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 bg-green-500 text-white rounded-full p-3 shadow-lg hover:bg-green-600 transition-colors z-50"
-        aria-label="Contactar por WhatsApp"
-      >
+      <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" className="fixed bottom-6 right-6 bg-blue-700 text-white rounded-full p-3 shadow-lg hover:bg-blue-700 transition-colors z-50">
         <FaWhatsapp size={28} />
       </a>
-    </div>
-  );
+    </div>;
 };
-
 export default Landing;
