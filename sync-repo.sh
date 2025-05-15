@@ -17,6 +17,15 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
+# Verificar conexión con el repositorio remoto
+echo -e "${YELLOW}Verificando conexión con el repositorio remoto...${NC}"
+git ls-remote --exit-code origin &>/dev/null
+if [ $? -ne 0 ]; then
+  echo -e "${RED}Error: No se puede acceder al repositorio remoto.${NC}"
+  echo -e "${YELLOW}Verifica tu conexión a internet o los permisos del repositorio.${NC}"
+  exit 1
+fi
+
 # Verificar si hay cambios para hacer commit
 echo -e "${YELLOW}Verificando cambios en el repositorio...${NC}"
 if [[ -z $(git status -s) ]]; then
@@ -30,7 +39,7 @@ echo -e "${YELLOW}Comprobando si hay cambios en el repositorio remoto...${NC}"
 git fetch origin
 
 # Si la rama local está detrás de la remota, hacer un pull antes
-if [ "$(git rev-list HEAD..origin/main --count)" -gt 0 ]; then
+if [ "$(git rev-list HEAD..origin/main --count 2>/dev/null)" -gt 0 ]; then
   echo -e "${YELLOW}La rama local está desactualizada. Descargando cambios remotos...${NC}"
   
   # Guardar cambios locales temporalmente
@@ -77,11 +86,51 @@ git push origin main
 
 # Verificar si el push fue exitoso
 if [ $? -eq 0 ]; then
-  echo -e "${GREEN}¡Sincronización completada con éxito!${NC}"
-  echo -e "${YELLOW}Detalles del commit:${NC}"
-  echo -e "${BLUE}$(git log -1 --pretty=format:'%h - %an, %ar: %s')${NC}"
+  # Verificar explícitamente que los cambios se subieron correctamente
+  echo -e "${YELLOW}Verificando que los cambios se hayan subido correctamente...${NC}"
+  git fetch origin
+  LOCAL_COMMIT=$(git rev-parse HEAD)
+  REMOTE_COMMIT=$(git rev-parse origin/main 2>/dev/null)
+  
+  if [ "$LOCAL_COMMIT" = "$REMOTE_COMMIT" ]; then
+    echo -e "${GREEN}¡Sincronización completada con éxito!${NC}"
+    echo -e "${YELLOW}Detalles del commit:${NC}"
+    echo -e "${BLUE}$(git log -1 --pretty=format:'%h - %an, %ar: %s')${NC}"
+  else
+    echo -e "${RED}¡Advertencia! Los cambios locales no coinciden con el repositorio remoto.${NC}"
+    echo -e "${YELLOW}Intentando forzar la subida de cambios...${NC}"
+    git push --force origin main
+    
+    if [ $? -eq 0 ]; then
+      echo -e "${GREEN}¡Sincronización forzada completada con éxito!${NC}"
+    else
+      echo -e "${RED}Error al forzar la subida de cambios.${NC}"
+      echo -e "${YELLOW}Verifica tu configuración de rama y permisos en el repositorio.${NC}"
+      exit 1
+    fi
+  fi
 else
-  echo -e "${RED}Error al subir los cambios. Intenta resolver manualmente.${NC}"
-  echo -e "${YELLOW}Puedes intentar con: ${BLUE}git pull --rebase origin main${NC} y luego ${BLUE}git push origin main${NC}"
-  exit 1
+  echo -e "${RED}Error al subir los cambios. Intentando solución alternativa...${NC}"
+  echo -e "${YELLOW}Ejecutando: git pull --rebase origin main${NC}"
+  git pull --rebase origin main
+  
+  if [ $? -eq 0 ]; then
+    echo -e "${YELLOW}Reintentando push después del rebase...${NC}"
+    git push origin main
+    
+    if [ $? -eq 0 ]; then
+      echo -e "${GREEN}¡Sincronización completada con éxito después del rebase!${NC}"
+      echo -e "${YELLOW}Detalles del commit:${NC}"
+      echo -e "${BLUE}$(git log -1 --pretty=format:'%h - %an, %ar: %s')${NC}"
+    else
+      echo -e "${RED}Falló el segundo intento. Intenta resolver manualmente.${NC}"
+      echo -e "${YELLOW}Posibles problemas: credenciales, configuración de rama o permisos.${NC}"
+      exit 1
+    fi
+  else
+    echo -e "${RED}Error en el rebase. Intenta resolver manualmente.${NC}"
+    echo -e "${YELLOW}Verifica tus credenciales de Git y la configuración de rama.${NC}"
+    echo -e "${YELLOW}Puedes intentar: ${BLUE}git config --global credential.helper cache${NC}"
+    exit 1
+  fi
 fi 
